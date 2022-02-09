@@ -1,0 +1,18 @@
+76b5466 HEAD@{0}: merge develop: Fast-forward
+88e910b HEAD@{1}: checkout: moving from develop to main
+76b5466 HEAD@{2}: commit (merge): merged and resolved the conflict in index.html
+bd55628 HEAD@{3}: merge images: Fast-forward
+52ab259 HEAD@{4}: checkout: moving from styles to develop
+2676f2d HEAD@{5}: commit: -c6- change index.html with style
+6c6791a HEAD@{6}: checkout: moving from develop to styles
+52ab259 HEAD@{7}: checkout: moving from styles to develop
+6c6791a HEAD@{8}: commit: -c5- create stiles dir with styles files
+52ab259 HEAD@{9}: checkout: moving from develop to styles
+52ab259 HEAD@{10}: checkout: moving from images to develop
+bd55628 HEAD@{11}: commit: -c4- modify index.html, insert images
+ca88898 HEAD@{12}: commit: -c3- create images brahch and directory
+52ab259 HEAD@{13}: checkout: moving from develop to images
+52ab259 HEAD@{14}: commit: -c2- create empty index.html
+88e910b HEAD@{15}: checkout: moving from main to develop
+88e910b HEAD@{16}: commit: -c1- create readme.txt file
+52d2740 HEAD@{17}: clone: from github.com:vadimmazhar/DevOps_online_Kyiv_2022Q1Q2.git
