@@ -386,18 +386,354 @@ CONFLICT (content): Merge conflict in Module01_DevOps-Intro/task_1.1/index.html 
 Automatic merge failed; fix conflicts and then commit the result.
 
 
+$ ls -l
+total 13
+drwxr-xr-x 1 Vadim.Mazhar 1049089    0 Feb  9 17:53 flower_images/
+-rw-r--r-- 1 Vadim.Mazhar 1049089 1039 Feb  9 17:54 index.html
+-rw-r--r-- 1 Vadim.Mazhar 1049089    0 Feb  8 20:32 readme.txt
+drwxr-xr-x 1 Vadim.Mazhar 1049089    0 Feb  9 17:54 styles/
+-rw-r--r-- 1 Vadim.Mazhar 1049089   33 Feb  8 20:28 task_1_1_description.txt
+
+$ git merge styles
+`error: Merging is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+`
 
 
+## $ vi index.html  !!!
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (develop|MERGING)
+$ cat index.html  !!
+<html>
+
+  <head>
+    <title>Flowers pictures</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body align=center>
+
+
+    <h1>Flowers Wiki</h1>
+    <h1>------------------------</h1>
+
+
+    <link rel="stylesheet" href="styles/flower_style1.css">
+
+    <h2>Flower-1</h2>
+    <img src="flower_images/flower_photo1.jpg">
+
+
+    <link rel="stylesheet" href="styles/flower_style2.css">
+
+    <h2>Flower-2</h2>
+    <img src="flower_images/flower_photo2.jpg">
+
+
+    <link rel="stylesheet" href="styles/flower_style3.css">
+
+    <h2>Flower-3</h2>
+    <img src="flower_images/flower_photo3.jpg">
+
+
+   <link rel="stylesheet" href="styles/flower_style4.css">
+
+    <h2>Flower-4</h2>
+    <img src="flower_images/flower_photo4.jpg">
+
+
+  </body>
+</html>
+
+### $ git add index.html
+warning: LF will be replaced by CRLF in Module01_DevOps-Intro/task_1.1/index.html.
+The file will have its original line endings in your working directory
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (develop|MERGING)
+### $ git commit -m "merged and resolved the conflict in index.html"
+[develop 76b5466] merged and resolved the conflict in index.html
+
+## --21. Do not delete any branches!  22. Merge develop into master --## 
+$ git branch -a
+* develop
+  images
+  main
+  styles
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (develop)
+## $ git checkout main 
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+## $ git merge develop  !!
+Updating 88e910b..76b5466
+Fast-forward
+ .../task_1.1/flower_images/flower_photo1.jpg       | Bin 0 -> 25786 bytes
+ .../task_1.1/flower_images/flower_photo2.jpg       | Bin 0 -> 111591 bytes
+ .../task_1.1/flower_images/flower_photo3.jpg       | Bin 0 -> 74014 bytes
+ .../task_1.1/flower_images/flower_photo4.jpg       | Bin 0 -> 87561 bytes
+ Module01_DevOps-Intro/task_1.1/index.html          |  41 +++++++++++++++++++++
+ .../task_1.1/styles/flower_style1.css              |   9 +++++
+ .../task_1.1/styles/flower_style2.css              |   9 +++++
+ .../task_1.1/styles/flower_style3.css              |   9 +++++
+ .../task_1.1/styles/flower_style4.css              |   9 +++++
+ 9 files changed, 77 insertions(+)
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo1.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo2.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo3.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo4.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/index.html
+ create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style1.css
+ create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style2.css
+ create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style3.css
+ create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style4.css
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+$ ls
+flower_images/  index.html  readme.txt  styles/  task_1_1_description.txt
+
+## --- 23. Try to inspect your repository with git log command. Use different options with this command (git log --help) --##
+$ git log  !!
+commit 76b5466a96d1d46e053b0a968f26b6bfe0bbf3a2 (HEAD -> main, develop)
+Merge: bd55628 2676f2d
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Wed Feb 9 18:05:11 2022 +0200
+
+    merged and resolved the conflict in index.html
+
+commit 2676f2d4495af022ef5881a9d4db2cdfb96569ff (styles)
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Wed Feb 9 17:46:20 2022 +0200
+
+    -c6- change index.html with style
+
+commit 6c6791a4f95fb7a1997ed856664485ab1c1fe710
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 21:13:41 2022 +0200
+
+    -c5- create stiles dir with styles files
+
+commit bd556289db76634238f930e009ecae16126dc1f0 (images)
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:54:02 2022 +0200
+
+    -c4- modify index.html, insert images
+
+commit ca8889870916a7445eb14d3d8e49f10bc83a3fd4
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:50:49 2022 +0200
+
+    -c3- create images brahch and directory
+
+commit 52ab2590f1eb478a72da51b93f3b3e4958b2945c
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:42:09 2022 +0200
+
+    -c2- create empty index.html
+
+commit 88e910b72f1052094acece8c55306ad286108de1
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:37:12 2022 +0200
+
+    -c1- create readme.txt file
+
+commit 52d2740e1884b6adfa24ed69ad02bb517e44ae3d (origin/main, origin/HEAD)
+Author: vadimmazhar <99098762+vadimmazhar@users.noreply.github.com>
+Date:   Sun Feb 6 22:52:52 2022 +0200
+
+    Create task_1_1_description.txt
+
+commit 32073bc838bd8074591844f294c986f9538bbf9b
+Author: vadimmazhar <99098762+vadimmazhar@users.noreply.github.com>
+Date:   Sat Feb 5 23:15:39 2022 +0200
+
+    Initial commit
+
+### $ git log -1 HEAD    !!
+commit 76b5466a96d1d46e053b0a968f26b6bfe0bbf3a2 (HEAD -> main, develop)
+Merge: bd55628 2676f2d
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Wed Feb 9 18:05:11 2022 +0200
+
+    merged and resolved the conflict in index.html
 
  
- 
+ ### Get commit files from log – (--name-only) 
+$ git log --name-only
+commit 76b5466a96d1d46e053b0a968f26b6bfe0bbf3a2 (HEAD -> main, develop)
+Merge: bd55628 2676f2d
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Wed Feb 9 18:05:11 2022 +0200
 
-  
+    merged and resolved the conflict in index.html
 
+commit 2676f2d4495af022ef5881a9d4db2cdfb96569ff (styles)
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Wed Feb 9 17:46:20 2022 +0200
 
+    -c6- change index.html with style
 
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo1.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo2.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo3.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo4.jpg
+Module01_DevOps-Intro/task_1.1/index.html
 
+commit 6c6791a4f95fb7a1997ed856664485ab1c1fe710
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 21:13:41 2022 +0200
 
+    -c5- create stiles dir with styles files
 
+Module01_DevOps-Intro/task_1.1/styles/flower_style1.css
+Module01_DevOps-Intro/task_1.1/styles/flower_style2.css
+Module01_DevOps-Intro/task_1.1/styles/flower_style3.css
+Module01_DevOps-Intro/task_1.1/styles/flower_style4.css
+
+commit bd556289db76634238f930e009ecae16126dc1f0 (images)
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:54:02 2022 +0200
+
+    -c4- modify index.html, insert images
+
+Module01_DevOps-Intro/task_1.1/index.html
+
+commit ca8889870916a7445eb14d3d8e49f10bc83a3fd4
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:50:49 2022 +0200
+
+    -c3- create images brahch and directory
+
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo1.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo2.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo3.jpg
+Module01_DevOps-Intro/task_1.1/flower_images/flower_photo4.jpg
+
+commit 52ab2590f1eb478a72da51b93f3b3e4958b2945c
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:42:09 2022 +0200
+
+    -c2- create empty index.html
+
+Module01_DevOps-Intro/task_1.1/index.html
+
+commit 88e910b72f1052094acece8c55306ad286108de1
+Author: vadimmazhar <vadimmazhar@ukr.net>
+Date:   Tue Feb 8 20:37:12 2022 +0200
+
+    -c1- create readme.txt file
+
+Module01_DevOps-Intro/task_1.1/readme.txt
+
+commit 52d2740e1884b6adfa24ed69ad02bb517e44ae3d (origin/main, origin/HEAD)
+Author: vadimmazhar <99098762+vadimmazhar@users.noreply.github.com>
+Date:   Sun Feb 6 22:52:52 2022 +0200
+
+    Create task_1_1_description.txt
+
+Module01_DevOps-Intro/task_1.1/task_1_1_description.txt
+
+commit 32073bc838bd8074591844f294c986f9538bbf9b
+Author: vadimmazhar <99098762+vadimmazhar@users.noreply.github.com>
+Date:   Sat Feb 5 23:15:39 2022 +0200
+
+    Initial commit
+
+README.md
+
+## -- 24. Push all your changes with all your branches to origin (git push origin --all). --
+## $ git push origin --all !!
+Enumerating objects: 41, done.
+Counting objects: 100% (41/41), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (31/31), done.
+Writing objects: 100% (38/38), 293.09 KiB | 2.62 MiB/s, done.
+Total 38 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), done.
+To github.com:vadimmazhar/DevOps_online_Kyiv_2022Q1Q2.git
+   52d2740..76b5466  main -> main
+ * [new branch]      develop -> develop
+ * [new branch]      images -> images
+ * [new branch]      styles -> styles
+
+## -- 25. Execute command “git reflog“ and save it content somewhere (not in repository) with filename “task1.1_GIT.txt”. --## 
+
+### $ git reflog > ~/epam_data/tmp/task1.1_GIT_REFLOG_v1.txt
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+$ vi ~/epam_data/tmp/task1.1_GIT_REFLOG_v1.txt
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+$ cat ~/epam_data/tmp/task1.1_GIT_REFLOG_v1.txt !!
+76b5466 HEAD@{0}: merge develop: Fast-forward
+88e910b HEAD@{1}: checkout: moving from develop to main
+76b5466 HEAD@{2}: commit (merge): merged and resolved the conflict in index.html
+bd55628 HEAD@{3}: merge images: Fast-forward
+52ab259 HEAD@{4}: checkout: moving from styles to develop
+2676f2d HEAD@{5}: commit: -c6- change index.html with style
+6c6791a HEAD@{6}: checkout: moving from develop to styles
+52ab259 HEAD@{7}: checkout: moving from styles to develop
+6c6791a HEAD@{8}: commit: -c5- create stiles dir with styles files
+52ab259 HEAD@{9}: checkout: moving from develop to styles
+52ab259 HEAD@{10}: checkout: moving from images to develop
+bd55628 HEAD@{11}: commit: -c4- modify index.html, insert images
+ca88898 HEAD@{12}: commit: -c3- create images brahch and directory
+52ab259 HEAD@{13}: checkout: moving from develop to images
+52ab259 HEAD@{14}: commit: -c2- create empty index.html
+88e910b HEAD@{15}: checkout: moving from main to develop
+88e910b HEAD@{16}: commit: -c1- create readme.txt file
+52d2740 HEAD@{17}: clone: from github.com:vadimmazhar/DevOps_online_Kyiv_2022Q1Q2.git
+
+## -- 26. Add task1.1_GIT.txt to your local repo in then Push it in GitHub repo. --## 
+cp ~/epam_data/tmp/task1.1_GIT_REFLOG_v1.txt ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 !!
+
+$ ls -l task1.1_GIT_REFLOG_v1.txt
+-rw-r--r-- 1 Vadim.Mazhar 1049089 1091 Feb  9 18:39 task1.1_GIT_REFLOG_v1.txt
+
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+`  (use "git add <file>..." to include in what will be committed)
+        task1.1_GIT_REFLOG_v1.txt
+`
+nothing added to commit but untracked files present (use "git add" to track)
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+## $ git add task1.1_GIT_REFLOG_v1.txt !!
+warning: LF will be replaced by CRLF in Module01_DevOps-Intro/task_1.1/task1.1_GIT_REFLOG_v1.txt.
+The file will have its original line endings in your working directory
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (main)
+$ git status
+`On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   task1.1_GIT_REFLOG_v1.txt
+`
+## $ git commit -m "-c8- add task1_1 git reflog file"
+[main 08d6fbd] -c8- add task1_1 git reflog file
+ 1 file changed, 18 insertions(+)
+ create mode 100644 Module01_DevOps-Intro/task_1.1/task1.1_GIT_REFLOG_v1.txt
+
+## $ git push origin !!
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 843 bytes | 281.00 KiB/s, done.
+Total 5 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:vadimmazhar/DevOps_online_Kyiv_2022Q1Q2.git
+   76b5466..08d6fbd  main -> main
 
 
