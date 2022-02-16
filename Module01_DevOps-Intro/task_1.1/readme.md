@@ -248,6 +248,16 @@ $ cd styles/
 
 Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1/styles (styles)
 $ vi flower_style1.css
+$ cat flower_style1.css
+H1 {
+  color: #000080;
+  font-size: 100%;
+  font-family: Arial, Verdana, sans-serif;
+  text-align: center;
+}
+P {
+  padding-left: 20px;
+}
 
 $ ls
 flower_style1.css  flower_style2.css  flower_style3.css  flower_style4.css
@@ -256,7 +266,7 @@ $ git add *
 $ git status
 On branch styles
 Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
+  (use "git restore --staged \<file\>..." to unstage)
         new file:   styles/flower_style1.css
         new file:   styles/flower_style2.css
         new file:   styles/flower_style3.css
@@ -265,13 +275,122 @@ Changes to be committed:
 
 Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (styles)
   
-$ git commit -a -m "-c5- create stiles dir with styles files"
+### $ git commit -a -m "-c5- create stiles dir with styles files"
 [styles 6c6791a] -c5- create stiles dir with styles files
  4 files changed, 36 insertions(+)
  create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style1.css
  create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style2.css
  create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style3.css
  create mode 100644 Module01_DevOps-Intro/task_1.1/styles/flower_style4.css
+ 
+ ## -- 18. Change your index.html. Commit. --
+ $ vi  index.html
+ $ cat index.html
+<html>
+
+  <head>
+    <title>Flowers pictures</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body align=center>
+
+
+    <h1>Flowers Wiki</h1>
+    <h1>------------------------</h1>
+
+
+    <link rel="stylesheet" href="styles/flower_style1.css">
+
+    <h2>Flower-1</h2>
+    <img src="flower_images/flower_photo1.jpg">
+
+
+    <link rel="stylesheet" href="styles/flower_style2.css">
+
+    <h2>Flower-2</h2>
+    <img src="flower_images/flower_photo2.jpg">
+
+
+    <link rel="stylesheet" href="styles/flower_style3.css">
+
+    <h2>Flower-3</h2>
+    <img src="flower_images/flower_photo3.jpg">
+
+
+   <link rel="stylesheet" href="styles/flower_style4.css">
+
+    <h2>Flower-4</h2>
+    <img src="flower_images/flower_photo4.jpg">
+
+
+  </body>
+</html>
+
+
+$ git add *
+warning: LF will be replaced by CRLF in Module01_DevOps-Intro/task_1.1/index.html.
+The file will have its original line endings in your working directory
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (styles)
+
+$ git commit -a -m "-c6- change index.html with style"  !!!
+[styles 2676f2d] -c6- change index.html with style
+ 5 files changed, 41 insertions(+)
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo1.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo2.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo3.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo4.jpg
+ 
+ ## -- 19. Go to develop branch. 20. Merge two new branches into develop using git merge command. Resolve conflict if it appear. 
+ ## Do it in next sequence:  •merge “images” into “develop”  •merge “styles” into “develop” --##
+$ git branch --show-current
+styles
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (styles)
+$ git checkout develop
+Switched to branch 'develop'
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (develop)
+$ git branch --show-current
+develop
+ 
+$ git branch -a
+* develop
+  images
+  main
+  styles
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/DevOps_online_Kyiv_2022Q1Q2/Module01_DevOps-Intro/task_1.1 (develop)
+$
+## $ git merge images !!
+Updating 52ab259..bd55628
+Fast-forward
+ .../task_1.1/flower_images/flower_photo1.jpg       | Bin 0 -> 25786 bytes
+ .../task_1.1/flower_images/flower_photo2.jpg       | Bin 0 -> 111591 bytes
+ .../task_1.1/flower_images/flower_photo3.jpg       | Bin 0 -> 74014 bytes
+ .../task_1.1/flower_images/flower_photo4.jpg       | Bin 0 -> 87561 bytes
+ Module01_DevOps-Intro/task_1.1/index.html          |  29 +++++++++++++++++++++
+ 5 files changed, 29 insertions(+)
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo1.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo2.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo3.jpg
+ create mode 100644 Module01_DevOps-Intro/task_1.1/flower_images/flower_photo4.jpg
+
+
+## $ git merge styles  !!
+Auto-merging Module01_DevOps-Intro/task_1.1/index.html
+CONFLICT (content): Merge conflict in Module01_DevOps-Intro/task_1.1/index.html  !!
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+
+
+
+ 
+ 
 
   
 
