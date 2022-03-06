@@ -65,7 +65,79 @@ Ping && ssh connect from Host to VM ep-ol-vm01(192.168.56.101)
 ![USB2VM ](task2_1_images/image28_usb2vm_task2_1.jpg)
 ![USB2VM ](task2_1_images/image29_usb2vm_task2_1.jpg)
 
+---
+**NOTE**
+[root@ep-ol-vm01 vadim]# id
+uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfi                                                                                       ned_t:s0-s0:c0.c1023
+[root@ep-ol-vm01 vadim]#
+[root@ep-ol-vm01 vadim]#
+[root@ep-ol-vm01 vadim]# lsscsi
+[1:0:0:0]    cd/dvd  VBOX     CD-ROM           1.0   /dev/sr0
+[2:0:0:0]    disk    ATA      VBOX HARDDISK    1.0   /dev/sda
+[3:0:0:0]    disk    JetFlash Transcend 64GB   1100  /dev/sdb
+[root@ep-ol-vm01 vadim]#
 
+[root@ep-ol-vm01 yum.repos.d]# lsscsi
+[1:0:0:0]    cd/dvd  VBOX     CD-ROM           1.0   /dev/sr0
+[2:0:0:0]    disk    ATA      VBOX HARDDISK    1.0   /dev/sda
+[3:0:0:0]    disk    JetFlash Transcend 64GB   1100  /dev/sdb
+[root@ep-ol-vm01 yum.repos.d]#
+[root@ep-ol-vm01 yum.repos.d]# fdisk -l /dev/sdb
+
+Disk /dev/sdb: 60.5 GB, 60472426496 bytes, 118110208 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x49f96372
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1   *       16128   118110207    59047040    7  HPFS/NTFS/exFAT
+/dev/sdb4         5539936     6758471      609268    0  Empty
+[root@ep-ol-vm01 yum.repos.d]#
+]# yum-config-manager --enable oracle-epel-release-el7
+[root@ep-ol-vm01 yum.repos.d]# yum install ntfs-3g 
+
+[root@ep-ol-vm01 yum.repos.d]# mount  -t ntfs-3g /dev/sdb1 /mnt/usb01/
+The disk contains an unclean file system (0, 0).
+The file system wasn't safely closed on Windows. Fixing.
+[root@ep-ol-vm01 yum.repos.d]# df -Th /mnt/usb01/
+Filesystem     Type     Size  Used Avail Use% Mounted on
+/dev/sdb1      fuseblk   57G   13G   44G  23% /mnt/usb01
+[root@ep-ol-vm01 yum.repos.d]#
+[root@ep-ol-vm01 yum.repos.d]# ls -l /mnt/usb01/
+total 740
+drwxrwxrwx. 1 root root   4096 Aug 28  2019 boot
+-rwxrwxrwx. 1 root root 409654 Jul  9  2019 bootmgr
+-rwxrwxrwx. 1 root root   2048 Jan 17  2012 default
+drwxrwxrwx. 1 root root      0 Aug 28  2019 efi
+-rwxrwxrwx. 1 root root 272255 Jul 24  2013 grldr
+drwxrwxrwx. 1 root root      0 Aug 28  2019 ISO
+-rwxrwxrwx. 1 root root   4252 Sep  3  2019 menu.lst
+-rwxrwxrwx. 1 root root  43559 Feb 25  2012 plpbt.bin
+-rwxrwxrwx. 1 root root   4365 Aug 22  2013 shifthd.bat
+drwxrwxrwx. 1 root root      0 Sep  3  2019 soft
+drwxrwxrwx. 1 root root      0 Aug 28  2019 System Volume Information
+-rwxrwxrwx. 1 root root      0 Dec 12  2009 usbdrive.tag
+drwxrwxrwx. 1 root root      0 Aug 28  2019 WINSETUP
+[root@ep-ol-vm01 yum.repos.d]#
+
+[root@ep-ol-vm01 yum.repos.d]# umount /mnt/usb01
+[root@ep-ol-vm01 yum.repos.d]#
+[root@ep-ol-vm01 yum.repos.d]# df -h
+Filesystem           Size  Used Avail Use% Mounted on
+devtmpfs             836M     0  836M   0% /dev
+tmpfs                850M     0  850M   0% /dev/shm
+tmpfs                850M  8.6M  841M   2% /run
+tmpfs                850M     0  850M   0% /sys/fs/cgroup
+/dev/mapper/ol-root  6.2G  2.2G  4.1G  35% /
+/dev/sda1           1014M  192M  823M  19% /boot
+tmpfs                170M     0  170M   0% /run/user/1000
+[root@ep-ol-vm01 yum.repos.d]#
+
+---
+
+## 3. Work with CLI through VBoxManage. 
 
 
 
