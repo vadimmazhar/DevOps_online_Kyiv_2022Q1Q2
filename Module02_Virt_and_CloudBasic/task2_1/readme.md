@@ -34,8 +34,40 @@ Ping && ssh connect from Host to VM ep-ol-vm01(192.168.56.101)
 ![Create snapshot of VM ep-ol-vm01 ep-ol-vm01_snapsh_hostname_change_v1](task2_1_images/image11_snapshot_task2_1.jpg)
 ###  change VM’s hostname 
 ![change hostname to ep-ol-virtualka01](task2_1_images/image12_snapshot_task2_1.jpg)
-![restore fron snapshot ](task2_1_images/image13_snapshot_task2_1.jpg)
+###  Restore VM from shapshot ep-ol-vm01_snapsh_hostname_change_v1
+![restore from snapshot ](task2_1_images/image13_snapshot_task2_1.jpg)
 ![restore from snapshot / Host name restore](task2_1_images/image14_snapshot_task2_1.jpg)
+
+##  -- 1.6 Clone an existing VM1 by creating a VM2 [1, ch.1.14] --##
+### Clone VM ep-ol-vm01   to  VM ep-ol-vm02
+![Clone VM ep-ol-vm01   to  VM ep-ol-vm02 ](task2_1_images/image15_vm_clone_task2_1.jpg)
+![Clone VM ep-ol-vm01   to  VM ep-ol-vm02 ](task2_1_images/image16_vm_clone_task2_1.jpg)
+![Clone VM ep-ol-vm01   to  VM ep-ol-vm02 ](task2_1_images/image17_vm_clone_task2_1.jpg)
+
+##  1.7 Create a group of two VM: VM1, VM2 and learn the functions related to groups [1, ch.1.10] --(https://www.virtualbox.org/manual/ch01.html#gui-vmgroups)
+#### Crete group VM-Group-OL from VM ep-ol-vm01 and VM ep-ol-vm02
+![Create a group of two VM: ep-ol-vm01 and VM ep-ol-vm02 ](task2_1_images/image18_vm_group_task2_1.jpg)
+### Start VM from group VM-Group-OL
+![ Start VM from group VM-Group-OL](task2_1_images/image19_vm_group_task2_1.jpg)
+![ Start VM from group VM-Group-OL](task2_1_images/image20_vm_group_task2_1.jpg)
+
+## -- 1.9 Export VM1. Save the .ova file to disk. Import VM from .ova file 
+![Export VM1 ](task2_1_images/image21_vmexport_task2_1.jpg)
+![Export VM1 ](task2_1_images/image22_vmexport_task2_1.jpg)
+![Export VM1 ](task2_1_images/image23_vmexport_task2_1.jpg)
+![Export VM1 ](task2_1_images/image24_vmexport_task2_1.jpg)
+### --  Import VM from .ova file 
+![import VM1](task2_1_images/image25_vm_import_task2_1.jpg)
+![import VM1](task2_1_images/image26_vm_import_task2_1.jpg)
+![import VM1](task2_1_images/image27_vm_import_task2_1.jpg)
+
+## USB to VM
+![USB2VM ](task2_1_images/image28_usb2vm_task2_1.jpg)
+![USB2VM ](task2_1_images/image29_usb2vm_task2_1.jpg)
+
+
+
+
 
 
 
