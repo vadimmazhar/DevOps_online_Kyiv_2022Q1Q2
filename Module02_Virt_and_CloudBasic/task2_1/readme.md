@@ -66,7 +66,7 @@ Ping && ssh connect from Host to VM ep-ol-vm01(192.168.56.101)
 ![USB2VM ](task2_1_images/image29_usb2vm_task2_1.jpg)
 
 ---
-**NOTE**
+```
 [root@ep-ol-vm01 vadim]# id
 uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfi                                                                                       ned_t:s0-s0:c0.c1023
 [root@ep-ol-vm01 vadim]#
@@ -135,6 +135,7 @@ tmpfs                850M     0  850M   0% /sys/fs/cgroup
 tmpfs                170M     0  170M   0% /run/user/1000
 [root@ep-ol-vm01 yum.repos.d]#
 
+```
 ---
 
 ## 3. Work with CLI through VBoxManage. 
