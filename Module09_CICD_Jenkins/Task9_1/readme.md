@@ -481,5 +481,37 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 ![Change Languge. Install plugin](task9_1_images/task9_1_Locale_change_jks_img05.jpg)
 
 
+## ---- Create first  JOB in Jenkins  -----
+#### --- Select create job
+task9_1_create1st_jenkins_job_img01.jpg
+![Create first job](task9_1_images/task9_1_create1st_jenkins_job_img01.jpg)
+#### ---- Enter name of job “vadym_firs_job” and select Freestyle project  and press OK
+![Freestyle first job](task9_1_images/task9_1_create1st_jenkins_job_img02.jpg)
+#### Fill description field
+![Freestyle first job description](task9_1_images/task9_1_create1st_jenkins_job_img03.jpg)
+#### Go to Build environmental section . Add build step “ -> Select “Execute shell”  Write  script in Command field
+```
+echo "##----- START First JKS job -----##"
+echo "##--- Hello !!! ---##"
+hostnamectl
+echo "##----- STOP First JKS job -----##"
+echo "Build Number #[BUILD_NUMBER]: $BUILD_NUMBER"
+echo "Name of the current build[BUILD_DISPLAY_NAME] :$BUILD_DISPLAY_NAME"
+echo "Name of the project of this build[JOB_NAME]:$JOB_NAME"
+echo "The path to the build as a workspace[WORKSPACE]:$WORKSPACE"
+echo "A temporary directory near the workspace [WORKSPACE_TMP]:$WORKSPACE_TMP"
+```
+![Write job action's script](task9_1_images/task9_1_create1st_jenkins_job_img06.jpg)
+
+#### Press SAVE  And go to Dashboard
+#### -- Build Job vadym_first_job   Select Job menu ->  “Build Now”
+![First Build of First jenkins job](task9_1_images/task9_1_create1st_jenkins_job_img08.jpg)
+
+#### ---  After Build go to Job “vadym_first_job” -> Status
+![First jenkins job status](task9_1_images/task9_1_create1st_jenkins_job_img09.jpg)
+
+#### -- Job's Console Output 
+![First jenkins job Console Output](task9_1_images/task9_1_create1st_jenkins_job_img10.jpg)
+
 
 
