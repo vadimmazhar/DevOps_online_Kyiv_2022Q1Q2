@@ -1,6 +1,6 @@
-####################################
+# ###################################
 #  Module09 CI&CD Jenkins  Task 9.1
-####################################
+# ###################################
 
 ## ----------   Install Jenkins  -------------##
 ### --------------------------------------------
@@ -468,6 +468,18 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 
 #### -- first Jenkins Welcome   page 
 ![install suggested plugins at Firs enter](task9_1_images/task9_1_install_jenkins_img05.jpg)
+
+
+## --- Change Languge ( Localization ) in Jenkins ---
+#### (1) Install plugin. Manage Jenkins -> Manage Plugin -> Available Plugin
+#### Find plugin “Localization SupportVersion1.1”. Select this plugin  press “Download and install after restart
+![Change Languge. Install plugin](task9_1_images/task9_1_Locale_change_jks_img02.jpg)
+####  After install plugin  change Language in Google chrome
+![Change Languge. Install plugin](task9_1_images/task9_1_Locale_change_jks_img03.jpg)
+![Change Languge. Install plugin](task9_1_images/task9_1_Locale_change_jks_img04.jpg)
+#### Restart browser. And go Jenkins Dashboard  http://192.168.56.102:8080/
+![Change Languge. Install plugin](task9_1_images/task9_1_Locale_change_jks_img05.jpg)
+
 
 
 
