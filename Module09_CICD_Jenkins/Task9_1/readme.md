@@ -514,4 +514,27 @@ echo "A temporary directory near the workspace [WORKSPACE_TMP]:$WORKSPACE_TMP"
 ![First jenkins job Console Output](task9_1_images/task9_1_create1st_jenkins_job_img10.jpg)
 
 
+## -- Add ERROR in our script in Build section ---
+#### Go  job “vadym_first_job” -> Configure -> Section Build -> Command field
+#### Add in script
+```
+echo "##--- Error ---##"
+cat no-files.txt
+```
+
+![Add error in script](task9_1_images/task9_1_error_in_jenkins_job_img01.jpg)
+#### Save and press Build Now
+---
+#### In Status Our Job we can see Build Error  during Second build
+![error in 2nd build](task9_1_images/task9_1_error_in_jenkins_job_img03.jpg)
+
+#### Go to failed build Console Output and find Error (s)
+![error in 2nd build COnsole Output](task9_1_images/task9_1_error_in_jenkins_job_img04.jpg)
+
+##  ---- Add Plugin Green Balls  in Jenkins    --- 
+#### Go to   Plugin Manager  -> Select Plugin Green BallsVersion1.15.1 in Available -> Push install plugin 
+![Add Plugin Green Balls  in Jenkins](task9_1_images/task9_1_greenball_plug_jenkins_img01.jpg)
+![Add Plugin Green Balls  in Jenkins](task9_1_images/task9_1_greenball_plug_jenkins_img02.jpg)
+
+
 
