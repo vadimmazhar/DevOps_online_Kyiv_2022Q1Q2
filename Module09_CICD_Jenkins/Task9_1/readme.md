@@ -323,9 +323,10 @@ tzdata-java.noarch                    2022a-1.el7                  @ol7_latest
 
 ```
 
-###--- Install Jenkins  and run Jenkins ----
-Go to  https://pkg.jenkins.io/redhat-stable/jenkins.repo
-Create /etc/yum.repos.d/jenkins.repo.  Check  added repositories and jenkins packageis
+#### --- Install Jenkins  and run Jenkins ----
+---
+#### Go to  https://pkg.jenkins.io/redhat-stable/jenkins.repo. Create /etc/yum.repos.d/jenkins.repo. Check added repositories and jenkins packages
+---
 
 ```
 [root@ep-ol-vm02 yum.repos.d]# cat /etc/yum.repos.d/jenkins.repo
@@ -379,13 +380,13 @@ Total download size: 90 M
 Installed size: 91 M
 Is this ok [y/d/N]: y
 Downloading packages:
-jenkins-2.332.3-1.1.noarch.rpm                                                                                                        |  90 MB  00:00:54
+jenkins-2.332.3-1.1.noarch.rpm                                                                                              |  90 MB  00:00:54
 Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Installing : jenkins-2.332.3-1.1.noarch                                                                                                                1/1
-  Verifying  : jenkins-2.332.3-1.1.noarch                                                                                                                1/1
+  Installing : jenkins-2.332.3-1.1.noarch                                                                                              1/1
+  Verifying  : jenkins-2.332.3-1.1.noarch                                                                                              1/1
 
 Installed:
   jenkins.noarch 0:2.332.3-1.1
@@ -395,7 +396,7 @@ Complete!
 [root@ep-ol-vm02 yum.repos.d]# yum list installed jenkins
 Loaded plugins: langpacks, ulninfo
 Installed Packages
-jenkins.noarch                                                            2.332.3-1.1                                                              @jenkins
+jenkins.noarch                                                 2.332.3-1.1                                                              @jenkins
 [root@ep-ol-vm02 yum.repos.d]#
 [root@ep-ol-vm02 yum.repos.d]#
 
@@ -446,6 +447,27 @@ tcp6       0      0 :::8080                 :::*                    LISTEN      
 
 ```
 
-#### In Braowser   http://192.168.56.102:8080/
+#### In Browser http://192.168.56.102:8080/
+![First enter to Jenkins](task9_1_images/task9_1_install_jenkins_img01.jpg)
+
+#### cat file with temporary PWD and insert it to field t
+```
+[root@ep-ol-vm02 vadim]# cat /var/lib/jenkins/secrets/initialAdminPassword
+3ec3.....81c07
+[root@ep-ol-vm02 vadim]#
+```
+
+####  --- install suggested plugins 
+![install suggested plugins at Firs enter](task9_1_images/task9_1_install_jenkins_img02.jpg)
+
+----------------------------------------------------------------
+![install suggested plugins at Firs enter](task9_1_images/task9_1_install_jenkins_img03.jpg)
+
+####   - Create admin user 
+![install suggested plugins at Firs enter](task9_1_images/task9_1_install_jenkins_img04.jpg)
+
+#### -- first Jenkins Welcome   page 
+![install suggested plugins at Firs enter](task9_1_images/task9_1_install_jenkins_img05.jpg)
+
 
 
