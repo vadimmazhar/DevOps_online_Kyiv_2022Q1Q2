@@ -1057,3 +1057,326 @@ mysql> select * from doctors;
 
 mysql>
 ````
+
+----
+## #--------------------------#
+## - TASK 7.1 PART 3 MongoDB  -
+## #--------------------------#
+----
+### 17. Create a database. Use the use command to connect to a new database 
+####  ---- Install MongoDB on Oracle Linux
+#### Create repo file /etc/yum.repos.d/mongodb-org-5.0.repo
+````
+vi  /etc/yum.repos.d/mongodb-org-5.0.repo
+[root@ep-ol-vm02 vadim]# cat   /etc/yum.repos.d/mongodb-org-5.0.repo
+[mongodb-org-5.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/5.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+
+[root@ep-ol-vm02 vadim]#
+````
+#### --- install mongodb-org
+````
+ [root@ep-ol-vm02 vadim]# yum install mongodb-org
+Loaded plugins: langpacks, ulninfo
+Resolving Dependencies
+--> Running transaction check
+---> Package mongodb-org.x86_64 0:5.0.8-1.el7 will be installed
+--> Processing Dependency: mongodb-org-database for package: mongodb-org-5.0.8-1.el7.x86_64
+--> Processing Dependency: mongodb-org-tools for package: mongodb-org-5.0.8-1.el7.x86_64
+--> Processing Dependency: mongodb-mongosh for package: mongodb-org-5.0.8-1.el7.x86_64
+--> Running transaction check
+---> Package mongodb-mongosh.x86_64 0:1.4.2-1.el8 will be installed
+---> Package mongodb-org-database.x86_64 0:5.0.8-1.el7 will be installed
+--> Processing Dependency: mongodb-org-server for package: mongodb-org-database-5.0.8-1.el7.x86_64
+--> Processing Dependency: mongodb-org-mongos for package: mongodb-org-database-5.0.8-1.el7.x86_64
+--> Processing Dependency: mongodb-org-shell for package: mongodb-org-database-5.0.8-1.el7.x86_64
+--> Processing Dependency: mongodb-org-database-tools-extra for package: mongodb-org-database-5.0.8-1.el7.x86_64
+---> Package mongodb-org-tools.x86_64 0:5.0.8-1.el7 will be installed
+--> Processing Dependency: mongodb-database-tools for package: mongodb-org-tools-5.0.8-1.el7.x86_64
+--> Running transaction check
+---> Package mongodb-database-tools.x86_64 0:100.5.2-1 will be installed
+--> Processing Dependency: cyrus-sasl-gssapi for package: mongodb-database-tools-100.5.2-1.x86_64
+--> Processing Dependency: cyrus-sasl for package: mongodb-database-tools-100.5.2-1.x86_64
+---> Package mongodb-org-database-tools-extra.x86_64 0:5.0.8-1.el7 will be installed
+---> Package mongodb-org-mongos.x86_64 0:5.0.8-1.el7 will be installed
+---> Package mongodb-org-server.x86_64 0:5.0.8-1.el7 will be installed
+---> Package mongodb-org-shell.x86_64 0:5.0.8-1.el7 will be installed
+--> Running transaction check
+---> Package cyrus-sasl.x86_64 0:2.1.26-24.0.1.el7_9 will be installed
+--> Processing Dependency: cyrus-sasl-lib(x86-64) = 2.1.26-24.0.1.el7_9 for package: cyrus-sasl-2.1.26-24.0.1.el7_9.x86_64
+---> Package cyrus-sasl-gssapi.x86_64 0:2.1.26-24.0.1.el7_9 will be installed
+--> Running transaction check
+---> Package cyrus-sasl-lib.x86_64 0:2.1.26-23.el7 will be updated
+--> Processing Dependency: cyrus-sasl-lib(x86-64) = 2.1.26-23.el7 for package: cyrus-sasl-plain-2.1.26-23.el7.x86_64
+---> Package cyrus-sasl-lib.x86_64 0:2.1.26-24.0.1.el7_9 will be an update
+--> Running transaction check
+---> Package cyrus-sasl-plain.x86_64 0:2.1.26-23.el7 will be updated
+---> Package cyrus-sasl-plain.x86_64 0:2.1.26-24.0.1.el7_9 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==========================================================================================================================================================================
+ Package                           Arch                             Version                                       Repository                                 Size
+==========================================================================================================================================================================
+Installing:
+ mongodb-org                               x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                           6.1 k
+Installing for dependencies:
+ cyrus-sasl                               x86_64                           2.1.26-24.0.1.el7_9                           ol7_latest                                 88 k
+ cyrus-sasl-gssapi                        x86_64                           2.1.26-24.0.1.el7_9                           ol7_latest                                 41 k
+ mongodb-database-tools                   x86_64                           100.5.2-1                                     mongodb-org-5.0                            47 M
+ mongodb-mongosh                          x86_64                           1.4.2-1.el8                                   mongodb-org-5.0                            39 M
+ mongodb-org-database                      x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                           6.2 k
+ mongodb-org-database-tools-extra           x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                            11 k
+ mongodb-org-mongos                        x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                            20 M
+ mongodb-org-server                        x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                            28 M
+ mongodb-org-shell                         x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                            15 M
+ mongodb-org-tools                         x86_64                           5.0.8-1.el7                                   mongodb-org-5.0                           6.1 k
+Updating for dependencies:
+ cyrus-sasl-lib                            x86_64                           2.1.26-24.0.1.el7_9                           ol7_latest                                155 k
+ cyrus-sasl-plain                          x86_64                           2.1.26-24.0.1.el7_9                           ol7_latest                                 39 k
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package  (+10 Dependent packages)
+Upgrade             (  2 Dependent packages)
+
+Total download size: 149 M
+Is this ok [y/d/N]: y
+Downloading packages:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+(1/13): cyrus-sasl-gssapi-2.1.26-24.0.1.el7_9.x86_64.rpm                                                                                |  41 kB  00:00:00
+(2/13): cyrus-sasl-2.1.26-24.0.1.el7_9.x86_64.rpm                                                                                          |  88 kB  00:00:00
+(3/13): cyrus-sasl-lib-2.1.26-24.0.1.el7_9.x86_64.rpm                                                                                         | 155 kB  00:00:00
+(4/13): cyrus-sasl-plain-2.1.26-24.0.1.el7_9.x86_64.rpm                                                                                |  39 kB  00:00:00
+warning: /var/cache/yum/x86_64/7Server/mongodb-org-5.0/packages/mongodb-mongosh-1.4.2.el7.x86_64.rpm: Header V3 RSA/SHA1 Signature, key ID e2c63c11: NOKEY 7.3 MB/s |  76 MB  00:00:10 ETA
+Public key for mongodb-mongosh-1.4.2.el7.x86_64.rpm is not installed
+(5/13): mongodb-mongosh-1.4.2.el7.x86_64.rpm                                                                                                  |  39 MB  00:00:10
+(6/13): mongodb-org-5.0.8-1.el7.x86_64.rpm                                                                                               | 6.1 kB  00:00:00
+(7/13): mongodb-org-database-5.0.8-1.el7.x86_64.rpm                                                                                         | 6.2 kB  00:00:00
+(8/13): mongodb-org-database-tools-extra-5.0.8-1.el7.x86_64.rpm                                                                               |  11 kB  00:00:00
+(9/13): mongodb-database-tools-100.5.2.x86_64.rpm                                                                                                 |  47 MB  00:00:11
+(10/13): mongodb-org-mongos-5.0.8-1.el7.x86_64.rpm                                                                                                |  20 MB  00:00:04
+(11/13): mongodb-org-server-5.0.8-1.el7.x86_64.rpm                                                                                               |  28 MB  00:00:07
+(12/13): mongodb-org-tools-5.0.8-1.el7.x86_64.rpm                                                                                                   | 6.1 kB  00:00:00
+(13/13): mongodb-org-shell-5.0.8-1.el7.x86_64.rpm                                                                                                   |  15 MB  00:00:04
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Installed:
+  mongodb-org.x86_64 0:5.0.8-1.el7
+
+Dependency Installed:
+  cyrus-sasl.x86_64 0:2.1.26-24.0.1.el7_9     cyrus-sasl-gssapi.x86_64 0:2.1.26-24.0.1.el7_9          mongodb-database-tools.x86_64 0:100.5.2-1   mongodb-mongosh.x86_64 0:1.4.2-1.el8
+  mongodb-org-database.x86_64 0:5.0.8-1.el7   mongodb-org-database-tools-extra.x86_64 0:5.0.8-1.el7   mongodb-org-mongos.x86_64 0:5.0.8-1.el7     mongodb-org-server.x86_64 0:5.0.8-1.el7
+  mongodb-org-shell.x86_64 0:5.0.8-1.el7      mongodb-org-tools.x86_64 0:5.0.8-1.el7
+
+Dependency Updated:
+  cyrus-sasl-lib.x86_64 0:2.1.26-24.0.1.el7_9                                                 cyrus-sasl-plain.x86_64 0:2.1.26-24.0.1.el7_9
+
+Complete!
+[root@ep-ol-vm02 vadim]#
+````
+####  Start mongodb 
+````
+[root@ep-ol-vm02 vadim]# systemctl start mongod
+[root@ep-ol-vm02 vadim]#
+[root@ep-ol-vm02 vadim]# systemctl status mongod
+● mongod.service - MongoDB Database Server
+   Loaded: loaded (/usr/lib/systemd/system/mongod.service; enabled; vendor preset: disabled)
+   Active: active (running) since Sun 2022-05-29 22:29:47 EEST; 10s ago
+     Docs: https://docs.mongodb.org/manual
+  Process: 6911 ExecStart=/usr/bin/mongod $OPTIONS (code=exited, status=0/SUCCESS)
+  Process: 6908 ExecStartPre=/usr/bin/chmod 0755 /var/run/mongodb (code=exited, status=0/SUCCESS)
+  Process: 6904 ExecStartPre=/usr/bin/chown mongod:mongod /var/run/mongodb (code=exited, status=0/SUCCESS)
+  Process: 6903 ExecStartPre=/usr/bin/mkdir -p /var/run/mongodb (code=exited, status=0/SUCCESS)
+ Main PID: 6916 (mongod)
+   CGroup: /system.slice/mongod.service
+           └─6916 /usr/bin/mongod -f /etc/mongod.conf
+
+May 29 22:29:46 ep-ol-vm02 systemd[1]: Starting MongoDB Database Server...
+May 29 22:29:46 ep-ol-vm02 mongod[6911]: about to fork child process, waiting until server is ready for connections.
+May 29 22:29:46 ep-ol-vm02 mongod[6911]: forked process: 6916
+May 29 22:29:47 ep-ol-vm02 systemd[1]: Started MongoDB Database Server.
+[root@ep-ol-vm02 vadim]#
+
+````
+
+### 18. Create a collection. Use db.createCollection to create a collection.  Run show dbs and show collections to view your database and collections
+### 19. Create some documents. Insert a couple of documents into your collection.  
+### 20. Use find() to list documents out.
+````
+[root@ep-ol-vm02 vadim]# mongosh
+Current Mongosh Log ID: 6293ca5959cfaac19666dd67
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.4.2
+Using MongoDB:          5.0.8
+Using Mongosh:          1.4.2
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting:
+   2022-05-29T22:29:47.929+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2022-05-29T22:29:47.929+03:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+------
+
+test> show dbs;
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test>
+
+````
+````
+test> use demo;
+switched to db demo
+demo>
+
+demo> show collections;
+demo> 
+
+demo> db.createCollection("books");
+{ ok: 1 }
+demo>
+
+demo> show collection;
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+demo>
+
+demo> show collections;
+books
+demo> db.books.insertOne
+[Function: insertOne] AsyncFunction {
+  apiVersions: [ 1, Infinity ],
+  serverVersions: [ '3.2.0', '999.999.999' ],
+  returnsPromise: true,
+  topologies: [ 'ReplSet', 'Sharded', 'LoadBalanced', 'Standalone' ],
+  returnType: { type: 'unknown', attributes: {} },
+  deprecated: false,
+  platforms: [ 0, 1, 2 ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+demo>
+db.books.insertOne ({title: "MongoDB", likes: 100});
+{
+  acknowledged: true,
+  insertedId: ObjectId("6293ce61eb349ccec5afa581")
+}
+demo>
+
+demo> db.books.find();
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 100
+  }
+]
+demo> show dbs;
+admin   40.00 KiB
+config  92.00 KiB
+demo     8.00 KiB
+local   40.00 KiB
+demo>
+
+demo>
+demo> db.books.insertMany([{title: "a"},{name:"b"}]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6293cf25eb349ccec5afa582"),
+    '1': ObjectId("6293cf25eb349ccec5afa583")
+  }
+}
+demo>
+
+demo> db.books.find();
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 100
+  },
+  { _id: ObjectId("6293cf25eb349ccec5afa582"), title: 'a' },
+  { _id: ObjectId("6293cf25eb349ccec5afa583"), name: 'b' }
+]
+demo>
+
+demo> db.books.find({likes:100});
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 100
+  }
+]
+demo> db.books.find({ likes:{$gt: 10} });
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 100
+  }
+]
+demo> db.books.updateOne ( {title: "MongoDB"}, {$set: {likes: 200 }} );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+demo> db.books.find();
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 200
+  },
+  { _id: ObjectId("6293cf25eb349ccec5afa582"), title: 'a' },
+  { _id: ObjectId("6293cf25eb349ccec5afa583"), name: 'b' }
+]
+demo>
+
+demo> db.books.deleteOne ({title: "a" });
+{ acknowledged: true, deletedCount: 1 }
+demo>
+
+demo> db.books.find();
+[
+  {
+    _id: ObjectId("6293ce61eb349ccec5afa581"),
+    title: 'MongoDB',
+    likes: 200
+  },
+  { _id: ObjectId("6293cf25eb349ccec5afa583"), name: 'b' }
+]
+demo>
+
+demo> db.books.drop();
+true
+demo>
+
+demo> db.books.find();
+demo>
+
+demo> show collections;
+
+demo> show dbs;
+admin   40.00 KiB
+config  92.00 KiB
+local   40.00 KiB
+demo>
+demo>
+
+````
