@@ -938,7 +938,7 @@ mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (6,100201,"G00G
 ERROR 1142 (42000): INSERT command denied to user 'webuser02'@'localhost' for table 'diagnoz'                     <-!!!
 mysql>
 ````
-#### --##--- But  only get  data from tables it possible for user webuser02
+#### -- But  only select data from tables it possible for user webuser02
 ````
 mysql> select * from diagnoz WHERE dcode = "C00D48";
 +------+--------+--------+---------------------+--------+
@@ -948,6 +948,112 @@ mysql> select * from diagnoz WHERE dcode = "C00D48";
 |    1 | 100101 | C00D48 | 2009-09-09 14:14:14 |    102 |
 +------+--------+--------+---------------------+--------+
 2 rows in set (0.00 sec)
+
+mysql>
+````
+
+----
+## #--------------------------#
+## ---  TASK 7.1 PART 2    ---
+## #--------------------------#
+----
+#### 10.Make backup of your database
+##### -- Create backup  MEDCARD database use mysqldump in file /export/mysqldata/mysqlbackup/medcard_bkp.data
+````
+[root@ep-ol-vm02 vadim]# mkdir -p /export/mysqldata/mysqlbackup
+[root@ep-ol-vm02 vadim]#
+[root@ep-ol-vm02 vadim]# mysqldump -u root -p medcard > /export/mysqldata/mysqlbackup/medcard_bkp.data    <-!!!
+Enter password:
+[root@ep-ol-vm02 vadim]#
+[root@ep-ol-vm02 vadim]# ls -l /export/mysqldata/mysqlbackup/medcard_bkp.data
+-rw-r--r--. 1 root root 4639 May 29 20:13 /export/mysqldata/mysqlbackup/medcard_bkp.data
+[root@ep-ol-vm02 vadim]#
+````
+
+#### 11.Delete the table and/or part of the data in the table.
+#### --- Delete row from table  “doctors”  where doc_fio="Reznikov R"
+````
+mysql> select * FROM doctors;
++--------+--------------+---------------+
+| doc_id | doc_fio      | doc_special   |
++--------+--------------+---------------+
+|    101 | Mykolenko P  | Infectsionist |
+|    102 | Chypryakov O | Xirurg        |
+|    113 | Bezus D      | Psyxiator     |
+|    222 | Reznikov R   | Nervopotolog  |     <-!!!
++--------+--------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> DELETE FROM doctors WHERE doc_fio="Reznikov R";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * FROM doctors;
++--------+--------------+---------------+
+| doc_id | doc_fio      | doc_special   |
++--------+--------------+---------------+
+|    101 | Mykolenko P  | Infectsionist |
+|    102 | Chypryakov O | Xirurg        |
+|    113 | Bezus D      | Psyxiator     |
++--------+--------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql>
+````
+----
+### 12.Restore your database.
+
+#### ---- Rectore  database medcard  from file /export/mysqldata/mysqlbackup/medcard_bkp.data and check tables “patient” && “doctors”
+````
+[root@ep-ol-vm02 vadim]# mysql -u root -p  medcard  <  /export/mysqldata/mysqlbackup/medcard_bkp.data
+Enter password:
+[root@ep-ol-vm02 vadim]#
+
+[root@ep-ol-vm02 vadim]# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+````
+````
+mysql> use medcard;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>
+mysql> select * from patient;
++--------+-----------+----------------+
+| p_id   | fio       | insuarence_num |
++--------+-----------+----------------+
+| 100101 | Smit N    |       90100101 |
+| 100102 | Brown S   |       90100102 |
+| 100201 | Wilson M  |       90100201 |
+| 100209 | Johnson J |       90100209 |
++--------+-----------+----------------+
+4 rows in set (0.01 sec)
+
+mysql>
+mysql> select * from doctors;
++--------+--------------+---------------+
+| doc_id | doc_fio      | doc_special   |
++--------+--------------+---------------+
+|    101 | Mykolenko P  | Infectsionist |
+|    102 | Chypryakov O | Xirurg        |
+|    113 | Bezus D      | Psyxiator     |
+|    222 | Reznikov R   | Nervopotolog  |      <-!!!
++--------+--------------+---------------+
+4 rows in set (0.00 sec)
 
 mysql>
 ````
