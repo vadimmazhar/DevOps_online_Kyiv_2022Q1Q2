@@ -562,8 +562,392 @@ mysql> select * from diagnoz_lib;
 
 mysql>
 ````
+![Fill table diagnoz_lib](task7_1_images/task7_1_dbadmin_img01.jpg)
+
+
+#### -- Fill doctors table --
+```
+mysql> DESCRIBE doctors;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| doc_id      | int         | NO   |     | NULL    |       |
+| doc_fio     | varchar(50) | NO   |     | NULL    |       |
+| doc_special | varchar(50) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
 
 
 
+mysql> DESCRIBE doctors;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| doc_id      | int         | NO   |     | NULL    |       |
+| doc_fio     | varchar(50) | NO   |     | NULL    |       |
+| doc_special | varchar(50) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
 
+mysql>
 
+mysql> INSERT INTO doctors (doc_id, doc_fio, doc_special) VALUES (101,"Mykolenko P","Infectsionist");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO doctors (doc_id, doc_fio, doc_special) VALUES (102,"Chypryakov O","Xirurg");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> INSERT INTO doctors (doc_id, doc_fio, doc_special) VALUES (113,"Bezus D","Psyxiator");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO doctors (doc_id, doc_fio, doc_special) VALUES (222,"Reznikov R","Nervopotolog");
+Query OK, 1 row affected (0.03 sec)
+
+mysql>
+mysql> select * from doctors;
++--------+--------------+---------------+
+| doc_id | doc_fio      | doc_special   |
++--------+--------------+---------------+
+|    101 | Mykolenko P  | Infectsionist |
+|    102 | Chypryakov O | Xirurg        |
+|    113 | Bezus D      | Psyxiator     |
+|    222 | Reznikov R   | Nervopotolog  |
++--------+--------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql>
+```
+![Fill table doctors](task7_1_images/task7_1_dbadmin_img02.jpg)
+
+#### -- Fill diagnoz table --
+```
+mysql> DESCRIBE diagnoz;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| dnum   | int        | NO   |     | NULL    |       |
+| p_id   | int        | NO   |     | NULL    |       |
+| dcode  | varchar(6) | NO   |     | NULL    |       |
+| ddate  | datetime   | NO   |     | NULL    |       |
+| doc_id | int        | NO   |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (1,100101,"A00B99",'2012-12-12 17:17:17',101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (2,100102,"F00F99",'2021-12-21 21:21:21',113);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (21,100201,"G00G99",'2020-10-20 20:20:20',222);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (29,100209,"C00D48",'2021-01-01 01:01:01',102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> select * from diagnoz;
++------+--------+--------+---------------------+--------+
+| dnum | p_id   | dcode  | ddate               | doc_id |
++------+--------+--------+---------------------+--------+
+|    1 | 100101 | A00B99 | 2012-12-12 17:17:17 |    101 |
+|    2 | 100102 | F00F99 | 2021-12-21 21:21:21 |    113 |
+|   21 | 100201 | G00G99 | 2020-10-20 20:20:20 |    222 |
+|   29 | 100209 | C00D48 | 2021-01-01 01:01:01 |    102 |
++------+--------+--------+---------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
+```
+
+### -- 6. Construct and execute SELECT operator with WHERE, GROUP BY and ORDER BY
+#### - show tables structure
+```
+mysql> use medcard;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>
+mysql> select  database();
++------------+
+| database() |
++------------+
+| medcard    |
++------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> show tables;
++-------------------+
+| Tables_in_medcard |
++-------------------+
+| diagnoz           |
+| diagnoz_lib       |
+| doctors           |
+| patient           |
++-------------------+
+4 rows in set (0.01 sec)
+
+mysql>
+mysql> DESCRIBE diagnoz;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| dnum   | int        | NO   |     | NULL    |       |
+| p_id   | int        | NO   |     | NULL    |       |
+| dcode  | varchar(6) | NO   |     | NULL    |       |
+| ddate  | datetime   | NO   |     | NULL    |       |
+| doc_id | int        | NO   |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql>
+mysql> DESCRIBE diagnoz_lib;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| d_id     | int          | NO   |     | NULL    |       |
+| dcode    | varchar(6)   | NO   | PRI | NULL    |       |
+| dname    | varchar(50)  | NO   |     | NULL    |       |
+| ddescrip | varchar(250) | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> DESCRIBE doctors;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| doc_id      | int         | NO   |     | NULL    |       |
+| doc_fio     | varchar(50) | NO   |     | NULL    |       |
+| doc_special | varchar(50) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql>
+mysql> DESCRIBE patient;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| p_id           | int         | NO   | PRI | NULL    |       |
+| fio            | varchar(50) | NO   |     | NULL    |       |
+| insuarence_num | int         | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+```
+
+#### - select from 2 tables:  select t2.fio, t1.dcode   FROM diagnoz AS t1, patient AS t2  WHERE t1.p_id = t2.p_id;
+```
+mysql> select t2.fio, t1.dcode   FROM diagnoz AS t1, patient AS t2  WHERE t1.p_id = t2.p_id;
++-----------+--------+
+| fio       | dcode  |
++-----------+--------+
+| Smit N    | A00B99 |
+| Brown S   | F00F99 |
+| Wilson M  | G00G99 |
+| Johnson J | C00D48 |
++-----------+--------+
+4 rows in set (0.09 sec)
+```
+#### - select from 3 tables:  "select t2.fio, t1.dcode, t3.dname  FROM diagnoz AS t1, patient AS t2, diagnoz_lib AS t3  WHERE t1.p_id = t2.p_id and t1.dcode=t3.dcode  ORDER BY t2.fio;"
+```
+mysql> select t2.fio, t1.dcode, t3.dname  FROM diagnoz AS t1, patient AS t2, diagnoz_lib AS t3  WHERE t1.p_id = t2.p_id and t1.dcode=t3.dcode  ORDER BY t2.fio;
++-----------+--------+----------------+
+| fio       | dcode  | dname          |
++-----------+--------+----------------+
+| Brown S   | F00F99 | Psyxiky        |
+| Johnson J | C00D48 | Novoutvorennya |
+| Smit N    | A00B99 | Infection      |
+| Wilson M  | G00G99 | Nervy          |
++-----------+--------+----------------+
+4 rows in set (0.01 sec)
+
+mysql>
+
+```
+
+![Select with order](task7_1_images/task7_1_dbadmin_img03.jpg)
+
+### -- Create a database of new users with different privileges. Connect to the database as a new user and verify that the privileges allow or deny certain actions.
+#### ---- Create  TWO users appuser01 (app admin ) and  webuser02 (app user for full access to  tables, webuser02 for read only data drom tables)
+```
+mysql> CREATE USER 'appuser01'@'localhost' IDENTIFIED BY '_App_User01_';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> CREATE USER 'webuser02'@'localhost' IDENTIFIED BY '_Web_User02_';
+Query OK, 0 rows affected (0.07 sec)
+
+mysql>
+```
+![Create TWO users in DB](task7_1_images/task7_1_dbadmin_img03_create_user.jpg)
+
+#### -Add garnts for appuser01   for management tables in MEDCARD database
+```
+mysql> SHOW GRANTS FOR appuser01@localhost;
++-----------------------------------------------+
+| Grants for appuser01@localhost                |
++-----------------------------------------------+
+| GRANT USAGE ON *.* TO `appuser01`@`localhost` |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> GRANT SELECT, INSERT, DELETE, CREATE ,UPDATE  ON medcard.* TO  `appuser01`@`localhost`;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql>
+mysql> SHOW GRANTS FOR appuser01@localhost;
++----------------------------------------------------------------------------------------+
+| Grants for appuser01@localhost                                                         |
++----------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `appuser01`@`localhost`                                          |
+| GRANT SELECT, INSERT, UPDATE, DELETE, CREATE ON `medcard`.* TO `appuser01`@`localhost` |
++----------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql>
+```
+#### -- Add garnts for webuser02  ONLY for read date from  tables in MEDCARD database
+````
+mysql> SHOW GRANTS FOR webuser02@localhost;
++-----------------------------------------------+
+| Grants for webuser02@localhost                |
++-----------------------------------------------+
+| GRANT USAGE ON *.* TO `webuser02`@`localhost` |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> GRANT SELECT ON medcard.* TO `webuser02`@`localhost`;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> SHOW GRANTS FOR webuser02@localhost;
++--------------------------------------------------------+
+| Grants for webuser02@localhost                         |
++--------------------------------------------------------+
+| GRANT USAGE ON *.* TO `webuser02`@`localhost`          |
+| GRANT SELECT ON `medcard`.* TO `webuser02`@`localhost` |
++--------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql>
+````
+![Add garnts for user](task7_1_images/task7_1_dbadmin_img05_create_user.jpg)
+
+#### -- Log as appuser01 and management  table 
+````
+[vadim@ep-ol-vm02 ~]$ mysql -u appuser01 -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use medcard;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>
+mysql> show tables;
++-------------------+
+| Tables_in_medcard |
++-------------------+
+| diagnoz           |
+| diagnoz_lib       |
+| doctors           |
+| patient           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql>  INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (1,100101,"C00D48",'2009-09-09 14:14:14',102);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from diagnoz WHERE dcode = "C00D48"
+    -> ;
++------+--------+--------+---------------------+--------+
+| dnum | p_id   | dcode  | ddate               | doc_id |
++------+--------+--------+---------------------+--------+
+|   29 | 100209 | C00D48 | 2021-01-01 01:01:01 |    102 |
+|    1 | 100101 | C00D48 | 2009-09-09 14:14:14 |    102 |
++------+--------+--------+---------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+````
+
+#### ---log as webuser02  and try to INSERT into table 
+````
+[vadim@ep-ol-vm02 ~]$ mysql -u webuser02 -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SELECT USER();
++---------------------+
+| USER()              |
++---------------------+
+| webuser02@localhost |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+mysql> use medcard;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql>
+mysql> select database();
++------------+
+| database() |
++------------+
+| medcard    |
++------------+
+1 row in set (0.00 sec)
+
+````
+#### --try to INSERT, but we can’t do this because user webuser02 don’t have INSERT grant
+````
+mysql> INSERT INTO diagnoz (dnum,p_id,dcode,ddate,doc_id) VALUES (6,100201,"G00G99",'2010-10-10 10:10:10',222);
+ERROR 1142 (42000): INSERT command denied to user 'webuser02'@'localhost' for table 'diagnoz'                     <-!!!
+mysql>
+````
+#### --##--- But  only get  data from tables it possible for user webuser02
+````
+mysql> select * from diagnoz WHERE dcode = "C00D48";
++------+--------+--------+---------------------+--------+
+| dnum | p_id   | dcode  | ddate               | doc_id |
++------+--------+--------+---------------------+--------+
+|   29 | 100209 | C00D48 | 2021-01-01 01:01:01 |    102 |
+|    1 | 100101 | C00D48 | 2009-09-09 14:14:14 |    102 |
++------+--------+--------+---------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+````
