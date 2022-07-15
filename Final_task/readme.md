@@ -410,3 +410,141 @@ websrv-prod | SUCCESS => {
 ...
 
 ````
+
+####  ----  Playbook to prepare Prod ENV ------ : 
+````
+[vadim@ep-ol-vmain01 ansible-playbooks]$ cat prepare-prod-env.yml
+---
+- name: Preparation Prod ENVironment playbook
+  hosts: aws-webapp
+
+  vars:
+     user_name: "vadim"
+     user_pwd: "_Qwerty_123"
+     user_comment: "admin user"
+     user_pubkey: '/home/vadim/keystst/aws-vm-access/aws-vm-key_rsa.pub'
+     java_pkg: "java-11-openjdk"
+
+  tasks:
+     - name: <--- Create admin User -->
+       user:
+          name: '{{ user_name }}'
+          comment: "{{ user_comment }}"
+          password: "{{ user_pwd | password_hash('sha256') }}"
+          state: present
+
+     - name: "<--- Set authorized key taken from file --->"
+       authorized_key:
+          user: '{{ user_name }}'
+          state: present
+##          key: "{{ lookup('file', '/home/vadim/keystst/aws-vm-access/aws-vm-key_rsa.pub') }}"
+          key: "{{ lookup('file', '{{ user_pubkey }}') }}"
+
+
+     - name: "< --- Add user {{ user_name }} to sudo  --->"
+       lineinfile:
+          path: "/etc/sudoers.d/{{ user_name }}"
+          line: '{{ user_name }} ALL=(ALL) NOPASSWD: ALL'
+          state: present
+          mode: 0440
+          create: yes
+          validate: 'visudo -cf %s'
+
+     - name: "<--- Install httpd  server --->"
+       yum:
+          name: httpd
+          state: present
+
+     - name: "<--- Start Httpd service --->"
+       service:
+          name: httpd
+          state: started
+
+...
+[vadim@ep-ol-vmain01 ansible-playbooks]$
+
+````
+
+----
+## 2.- Delivery website from GitHub into WEB test and production  infrastructure -
+### 2.1 #-- Create repo “epam_final-task01” on GitHub –#
+
+#### ----- Create index.html file  (epam_final-task01/index.html)---- 
+````
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Add the navbar here -->
+    <h2>About me</h2>
+    <p>I am learning DevOps course in EPAM </p>
+</body>
+</html>
+
+````
+
+### 2.2 --- Start and configre Jenkins on MainHost  ep-ol-vmain01 ---
+````
+[root@ep-ol-vmain01 vadim]# systemctl stop mysqld
+[root@ep-ol-vmain01 vadim]# systemctl stop firewalld
+[root@ep-ol-vmain01 vadim]#
+[root@ep-ol-vmain01 vadim]# systemctl start jenkins
+[root@ep-ol-vmain01 vadim]#
+[root@ep-ol-vmain01 vadim]# systemctl status jenkins
+● jenkins.service - Jenkins Continuous Integration Server
+   Loaded: loaded (/usr/lib/systemd/system/jenkins.service; disabled; vendor preset: disabled)
+   Active: active (running) since Tue 2022-07-12 12:38:13 EEST; 9s ago
+
+````
+
+
+### 2.3 --- Create Freestyle job --- 
+-- Add script to  Build -> Execute shell-> Command
+````
+echo "##------ Start script ------##"
+echo "Hello my Jenkins agent  <$NODE_NAME> !!!"
+echo "Build number BUILD_NUMBER: $BUILD_NUMBER"
+echo "JOB_NAME: $JOB_NAME"
+echo "WORKSPACE: $WORKSPACE"
+sleep 10
+echo "#--- Create Dockerfile ---#"
+mkdir -p alpine-apache2
+cp index.html alpine-apache2/
+cat << EOF > alpine-apache2/Dockerfile
+FROM alpine:3.14
+MAINTAINER  VVM <vadimmazhar@ukr.net>
+
+ENV  TZ=Europe/Kiev
+RUN  apk  update && apk  upgrade && \
+     apk add --no-cache apache2 libxml2-dev apache2-utils
+
+COPY  index.html /var/www/localhost/htdocs/
+
+CMD   ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+
+EXPOSE 80 443
+
+EOF
+echo "----------------------------"
+ls -la
+sleep 10
+echo "#--- Build docker image ussing alpine-apache2/Dockerfile ---#"
+sudo /usr/bin/docker build -t alpine-apache2:v1 alpine-apache2/
+sleep 10
+echo "#-------------------------------------------------------#"
+echo "#------- stop all docker containers ---#"
+sudo /usr/bin/docker ps -q | xargs -r sudo /usr/bin/docker stop
+#sudo /usr/bin/docker stop $(sudo /usr/bin/docker ps -q)
+sleep 10
+echo "#-------  start containet --------#"
+sudo /usr/bin/docker run -d --name websrv-tst -p 8080:80 --rm alpine-apache2:v1
+sleep 10
+sudo /usr/bin/docker ps 
+echo "##------ End scripts ------##"
+
+````
