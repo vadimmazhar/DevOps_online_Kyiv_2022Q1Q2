@@ -254,6 +254,7 @@ Last login: Thu Jul 14 13:01:34 2022 from 188.163.72.59
 [ec2-user@ip-172-31-37-89 ~]$
 
 ````
+
 ----
 ### 1.4  Configure  Test env ep-ol-vmtst01    and Production env   websrv-prod (aws)  with Ansible ###
 ####- create  directory /home/vadim/epam-data/ansible-playbooks
@@ -410,6 +411,8 @@ websrv-prod | SUCCESS => {
 ...
 
 ````
+![Run playbook to config Test Env](finproj_images/img01_playbook_testenv_1.jpg)
+
 
 ####  ----  Playbook to prepare Prod ENV ------ : 
 ````
@@ -464,6 +467,15 @@ websrv-prod | SUCCESS => {
 [vadim@ep-ol-vmain01 ansible-playbooks]$
 
 ````
+![Run playbook to config Prod Env](finproj_images/img02_playbook_prodenv_1.jpg)
+
+###---- Result of work terraform and Ansible configuration scripts for Prod Env ----
+
+![Prod Env](finproj_images/img03_terra_result_prodenv_1.jpg)
+
+![Prod Env](finproj_images/img04_playbook_prodenv_2.jpg)
+
+![Prod Env](finproj_images/img05_playbook_prodenv_3.jpg)
 
 ----
 ## 2.- Delivery website from GitHub into WEB test and production  infrastructure -
