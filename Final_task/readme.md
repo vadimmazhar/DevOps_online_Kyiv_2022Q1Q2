@@ -499,8 +499,40 @@ websrv-prod | SUCCESS => {
 </html>
 
 ````
+### 2.2 ---- Clone repository  “epam_final-task01”  localy
 
-### 2.2 --- Start and configre Jenkins on MainHost  ep-ol-vmain01 ---
+Link to clone:  git@github.com:vadimmazhar/epam_final-task01.git
+
+![Clone repositiry](finproj_images/img06_git_clone_1.jpg)
+````
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data
+$ git clone git@github.com:vadimmazhar/epam_final-task01.git 
+Cloning into 'epam_final-task01'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (3/3), done.
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data
+$ ls
+1st-test-pipeline-proj/  2nd-awsjks-githubhook-proj/  DevOps_online_Kyiv_2022Q1Q2/  epam_final-task01/
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data
+$
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data
+$ cd epam_final-task01/
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ ls
+index.html
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$
+````
+![Clone repositiry](finproj_images/img07_git_clone_2.jpg)
+
+### 2.3 --- Start and configre Jenkins on MainHost  ep-ol-vmain01 ---
 ````
 [root@ep-ol-vmain01 vadim]# systemctl stop mysqld
 [root@ep-ol-vmain01 vadim]# systemctl stop firewalld
@@ -515,7 +547,7 @@ websrv-prod | SUCCESS => {
 ````
 
 
-### 2.3 --- Create Freestyle job --- 
+### 2.4 --- Create Freestyle job  to delivery website to Test environment   --- 
 -- Add script to  Build -> Execute shell-> Command
 ````
 echo "##------ Start script ------##"
@@ -560,3 +592,124 @@ sudo /usr/bin/docker ps
 echo "##------ End scripts ------##"
 
 ````
+
+#### 2.5 --- Check Jenkins pipeline (availability Docker container and Website) ---
+
+![Check Jenkins pipeline for TEST Env](finproj_images/img08_jks_pipline_testenv_1.jpg)
+
+#### 2.6 Create Freestyle job  to delivery website to Prod environment ---
+
+##### Configure Publish over SSH in pipeline. For websrv-prod (change IP websrv-prod   in /etc/hosts on ep-ol-vmain01)
+````
+root@ep-ol-vmain01 keystst]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.56.110    ep-ol-vmain01
+#
+192.168.56.121   ep-ol-vmtst01
+3.72.104.211     websrv-prod     <- - !!
+
+````
+![Check Jenkins pipeline for PROD Env](finproj_images/img09_jks_pipline_prodenv_1.jpg)
+
+----
+#### 2.7 --- Make changes in website localy and push it to GitHub repository ----
+
+Add  line   “<p><font size="+2" color="green"> I am going to  get certificate </font></p>” to index.html
+
+````
+$ vi index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Add the navbar here -->
+    <h2>About me</h2>
+    <p>I am learning DevOps course in EPAM </p>
+    <p><font size="+2" color="green"> I am going to  get certificate </font></p>
+
+</body>
+</html>
+
+````
+
+````
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git add index.html
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   index.html
+
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git commit -a -m "-c1- modify add line 1"
+[main bfe7e6f] -c1- modify add line 1
+ 1 file changed, 2 insertions(+)
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git branch  --show-current
+main
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$ git push --all
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 369 bytes | 92.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:vadimmazhar/epam_final-task01.git
+   0cd8942..bfe7e6f  main -> main
+
+Vadim.Mazhar@KIE-2969448-NB MINGW64 ~/epam_data/github_data/epam_final-task01 (main)
+$
+
+````
+
+![Check Jenkins pipeline for PROD Env](finproj_images/img10_git_index_change_commit_1.jpg)
+
+##### --- Run Jenkins job for Test env after changes and check result ----
+![Run Jenkins pipeline for TEST Env after changes](finproj_images/img11_jks_pipel_run_testenv_after_change_1.jpg)
+
+![Check result working Jks pipeline for TEST Env after changes](finproj_images/img12_web_result_testenv_after_change_1.jpg)
+
+
+##### --- Run Jenkins job for Prod environment after chanegs and check result ---
+
+![Run Jenkins pipeline for PROD Env after changes](finproj_images/img13_jks_pipel_run_prodenv_after_change_1.jpg)
+
+
+![Check result working Jenkins pipeline for PROD Env after changes](finproj_images/img14_web_result_prodenv_after_change_1.jpg)
